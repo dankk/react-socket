@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import logo from './logo.svg';
 import './App.css';
-import {sockSendMessage, sockRecieveMessage} from './index.js';
+import {sockSendMessage, sockRecieveMessage, sockJoinGroup} from './index.js';
 
 function UserNameInput({setUserName, setStep}){
 
@@ -26,7 +26,7 @@ function UserNameInput({setUserName, setStep}){
   )
 }
 
-function JoinGroupInput({setGroup, setStep}){
+function JoinGroupInput({user, setGroup, setStep}){
 
   const doSetGroup = (e) => {
     if(e.key=="Enter"){
@@ -120,6 +120,7 @@ function App() {
         </div>        
       );
     case 2:
+        sockJoinGroup(userName, group);
         return (
           <div className="App">
             CHAT

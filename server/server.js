@@ -17,9 +17,14 @@ io.on("connection", async (socket) => {
         console.log("clients connected: " + connections);
     });
 
+    socket.on("joinGroup", data => {
+        console.log(`${data.user} joined group ${data.group}`);
+        socket.join(data.group);
+    });
+
     socket.on("chatSend", data => {
         console.log(`${data.group} -- ${data.user}: ${data.message}`);
-        io.emit("chatRecieve", `${data.user}: ${data.message}`);
+        io.in(data.group).emit("chatRecieve", `${data.user}: ${data.message}`);
     });
 });
 

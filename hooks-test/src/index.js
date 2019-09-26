@@ -9,6 +9,10 @@ import io from "socket.io-client";
 const socket = io.connect("http://localhost:5000");
 //const socket = io.connect("ec2-35-183-121-221.ca-central-1.compute.amazonaws.com:5000");
 
+const sockJoinGroup = (userName, group) => {
+    socket.emit("joinGroup", {user:userName, group:group});
+}
+
 const sockSendMessage = (userName, group, message) => {
     socket.emit("chatSend", {user:userName, group:group, message:message});
 }
@@ -26,4 +30,4 @@ ReactDOM.render(<App />, document.getElementById('root'));
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
 
-export {sockSendMessage, sockRecieveMessage}
+export {sockSendMessage, sockRecieveMessage, sockJoinGroup}
