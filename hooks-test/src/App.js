@@ -1,9 +1,10 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import logo from './logo.svg';
 import './App.css';
 import {sockSendMessage, sockRecieveMessage, sockJoinGroup} from './index.js';
 
 function UserNameInput({setUserName, setStep}){
+  const userInput = useRef(null);
 
   const doLogin = (e) => {
     if(e.key=="Enter"){
@@ -12,9 +13,15 @@ function UserNameInput({setUserName, setStep}){
       setStep(1);
     }
   }
+
+  useEffect(() => {
+    userInput.current.focus();
+  }, []);
+
   return(
     <div>
       <input
+        ref={userInput}
         type="text"
         id="userNameInput"
         placeholder="New User"
@@ -27,6 +34,7 @@ function UserNameInput({setUserName, setStep}){
 }
 
 function JoinGroupInput({user, setGroup, setStep}){
+  const groupInput = useRef(null);
 
   const doSetGroup = (e) => {
     if(e.key=="Enter"){
@@ -35,9 +43,15 @@ function JoinGroupInput({user, setGroup, setStep}){
       setStep(2);
     }
   }
+
+  useEffect(() => {
+    groupInput.current.focus();
+  }, []);
+
   return(
     <div>
       <input
+        ref={groupInput}
         type="text"
         id="groupNameInput"
         placeholder="Group Name"
@@ -50,6 +64,7 @@ function JoinGroupInput({user, setGroup, setStep}){
 }
 
 function MessageInput({sendMessage}){
+  const messageInput = useRef(null);
   const [message, setMessage] = useState("");
 
   const handleSubmit = (e) => {
@@ -61,9 +76,15 @@ function MessageInput({sendMessage}){
     }
   }
 
+
+  useEffect(() => {
+    messageInput.current.focus();
+  }, []);
+
   return(
     <div>
       <input
+        ref={messageInput}
         type="text"
         id="messageInput"
         value={message}
